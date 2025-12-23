@@ -38,7 +38,7 @@ export function NavCollapsible({
                 <SidebarMenu>
                   {favorites.map((item) => (
                     <SidebarMenuItem key={item.id}>
-                      <SidebarMenuButton render={<a href={item.href} className="flex items-center gap-3" />} nativebutton="false"><div
+                      <SidebarMenuButton render={<a href={item.href} className="flex items-center gap-3" />} ><div
                                                       className={`h-3 w-3 rounded-[4px] ${item.color}`}
                                                     ></div><span>{item.title}</span></SidebarMenuButton>
                     </SidebarMenuItem>
