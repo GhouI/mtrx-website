@@ -47,7 +47,6 @@ export function LoginForm({
         </CardHeader>
         <CardContent>
           <form onSubmit={onSubmit}>
-            <Button type="submit">Login</Button>
             <Button type="submit" variant="outline">
               Login with Google
             </Button>

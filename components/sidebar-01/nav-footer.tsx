@@ -30,16 +30,15 @@ import {
   Settings,
   User,
 } from "lucide-react";
-
+import { authClient } from "@/lib/auth-client";
 export function NavFooter({
-  user,
-}: {
-  user: {
-    name: string;
-    email: string;
-    avatar: string;
-  };
 }) {
+  const { data: session } =  authClient.useSession()
+  const user = {
+    name: session?.user?.name || "",
+    email: session?.user?.email || "",
+    avatar: session?.user?.image || "",
+  }
   return (
     <SidebarFooter className="p-4">
       <SidebarMenu>
@@ -47,7 +46,7 @@ export function NavFooter({
           <div className="flex items-center gap-2 justify-between">
             <div className="flex items-center gap-2">
               <DropdownMenu>
-                <DropdownMenuTrigger render={<Avatar className="h-8 w-8 rounded-full" />}><AvatarImage src={user.avatar} alt={user.name} /><AvatarFallback className="rounded-full">CN</AvatarFallback></DropdownMenuTrigger>
+                <DropdownMenuTrigger render={<Avatar className="h-8 w-8 rounded-full" />}><AvatarImage src={user.avatar || ""} alt={user.name || ""} /><AvatarFallback className="rounded-full">CN</AvatarFallback></DropdownMenuTrigger>
                 <DropdownMenuContent className="m-2">
                   <DropdownMenuItem>
                     <User size={16} className="opacity-80" aria-hidden="true" />
