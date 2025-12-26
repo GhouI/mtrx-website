@@ -1,14 +1,13 @@
-import { AppSidebar } from "@/components/sidebar-01/app-sidebar";
+import Sidebar from "@/components/sidebar";
 
 export default function RootLayout({
-    children,
-  }: Readonly<{
-    children: React.ReactNode;
-  }>) {
-    return (
-        <div>
-            <AppSidebar />
-        </div>
-    );
-  }
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return <div> 
+    <Sidebar>
+    {children}
+    </Sidebar> </div>;
+}
   

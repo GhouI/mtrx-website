@@ -15,9 +15,7 @@ import {
   DollarSign,
   Home,
   Infinity,
-  LinkIcon,
-  Package2,
-  Percent,
+  HatGlasses,
   PieChart,
   Settings,
   ShoppingBag,
@@ -26,11 +24,13 @@ import {
   TrendingUp,
   Users,
 } from "lucide-react";
-import { Logo } from "@/components/sidebar-02/logo";
+import { Logo } from "@/components/sidebar/logo";
 import type { Route } from "./nav-main";
-import DashboardNavigation from "@/components/sidebar-02/nav-main";
-import { NotificationsPopover } from "@/components/sidebar-02/nav-notifications";
-import { TeamSwitcher } from "@/components/sidebar-02/team-switcher";
+import DashboardNavigation from "@/components/sidebar/nav-main";
+import { NotificationsPopover } from "@/components/sidebar/nav-notifications";
+import { NavUser } from "@/components/sidebar/nav-user";
+import { authClient } from "@/lib/auth-client";
+import Image from "next/image";
 
 const sampleNotifications = [
   {
@@ -61,100 +61,51 @@ const dashboardRoutes: Route[] = [
     id: "home",
     title: "Home",
     icon: <Home className="size-4" />,
-    link: "#",
+    link: "overview",
   },
   {
-    id: "products",
-    title: "Products",
-    icon: <Package2 className="size-4" />,
-    link: "#",
-    subs: [
-      {
-        title: "Catalogue",
-        link: "#",
-        icon: <Package2 className="size-4" />,
-      },
-      {
-        title: "Checkout Links",
-        link: "#",
-        icon: <LinkIcon className="size-4" />,
-      },
-      {
-        title: "Discounts",
-        link: "#",
-        icon: <Percent className="size-4" />,
-      },
-    ],
+    id: "agent",
+    title: "Agent",
+    icon: <HatGlasses className="size-4" />,
+    link: "agent",
   },
   {
-    id: "usage-billing",
-    title: "Usage Billing",
+    id: "workflows",
+    title: "Workflows",
     icon: <PieChart className="size-4" />,
-    link: "#",
+    link: "workflow",
     subs: [
       {
-        title: "Meters",
-        link: "#",
+        title: "Image",
+        link: "/workflow/image",
         icon: <PieChart className="size-4" />,
       },
       {
-        title: "Events",
-        link: "#",
+        title: "Video",
+        link: "/workflow/video",
         icon: <Activity className="size-4" />,
       },
     ],
   },
   {
-    id: "benefits",
-    title: "Benefits",
-    icon: <Sparkles className="size-4" />,
-    link: "#",
-  },
-  {
-    id: "customers",
-    title: "Customers",
-    icon: <Users className="size-4" />,
-    link: "#",
-  },
-  {
-    id: "sales",
-    title: "Sales",
-    icon: <ShoppingBag className="size-4" />,
-    link: "#",
+    id: "facebook",
+    title: "Facebook",
+    icon: (
+      <Image
+        src="/facebook.svg"
+        alt="facebook"
+        width={4}
+        height={4}
+        className="size-4"
+      />
+    ),
+    link: "facebook",
     subs: [
       {
-        title: "Orders",
-        link: "#",
-        icon: <ShoppingBag className="size-4" />,
+        title: "Ads Account",
+        link: "/facebook/adsaccount",
+        icon: <PieChart className="size-4" />,
       },
-      {
-        title: "Subscriptions",
-        link: "#",
-        icon: <Infinity className="size-4" />,
-      },
-    ],
-  },
-  {
-    id: "storefront",
-    title: "Storefront",
-    icon: <Store className="size-4" />,
-    link: "#",
-  },
-  {
-    id: "analytics",
-    title: "Analytics",
-    icon: <TrendingUp className="size-4" />,
-    link: "#",
-  },
-  {
-    id: "finance",
-    title: "Finance",
-    icon: <DollarSign className="size-4" />,
-    link: "#",
-    subs: [
-      { title: "Incoming", link: "#" },
-      { title: "Outgoing", link: "#" },
-      { title: "Payout Account", link: "#" },
     ],
   },
   {
@@ -179,6 +130,7 @@ const teams = [
 export function DashboardSidebar() {
   const { state } = useSidebar();
   const isCollapsed = state === "collapsed";
+  const { data: session, isPending } = authClient.useSession();
 
   return (
     <Sidebar variant="inset" collapsible="icon">
@@ -217,7 +169,23 @@ export function DashboardSidebar() {
         <DashboardNavigation routes={dashboardRoutes} />
       </SidebarContent>
       <SidebarFooter className="px-2">
-        <TeamSwitcher teams={teams} />
+        {!isPending && session ? (
+          <NavUser
+            user={{
+              name: session?.user.name || "user",
+              avatar: session?.user.image || "",
+              email: session?.user.email || "user@gmail.com",
+            }}
+          />
+        ) : (
+          <NavUser
+            user={{
+              name: "Pending",
+              avatar: "pending",
+              email: "pending",
+            }}
+          />
+        )}
       </SidebarFooter>
     </Sidebar>
   );
