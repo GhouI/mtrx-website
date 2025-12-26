@@ -61,7 +61,7 @@ const dashboardRoutes: Route[] = [
     id: "home",
     title: "Home",
     icon: <Home className="size-4" />,
-    link: "overview",
+    link: "home",
   },
   {
     id: "agent",
@@ -143,10 +143,9 @@ export function DashboardSidebar() {
         )}
       >
         <a href="#" className="flex items-center gap-2">
-          <Logo className="h-8 w-8" />
           {!isCollapsed && (
             <span className="font-semibold text-black dark:text-white">
-              Acme
+              Flugel
             </span>
           )}
         </a>
