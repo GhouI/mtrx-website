@@ -32,6 +32,9 @@ importers:
       '@tabler/icons-react':
         specifier: ^3.36.0
         version: 3.36.0(react@19.2.3)
+      aperture:
+        specifier: 'link:'
+        version: 'link:'
       better-auth:
         specifier: ^1.4.9
         version: 1.4.9(next@16.1.1(@babel/core@7.28.5)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(pg@8.16.3)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
