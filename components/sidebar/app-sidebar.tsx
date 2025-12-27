@@ -115,6 +115,7 @@ const dashboardRoutes: Route[] = [
     link: "#",
     subs: [
       { title: "General", link: "#" },
+      {title: 'Connections', link: '#'},
       { title: "Webhooks", link: "#" },
       { title: "Custom Fields", link: "#" },
     ],
