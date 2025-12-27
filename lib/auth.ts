@@ -17,6 +17,11 @@ export const auth = betterAuth({
          'https://www.googleapis.com/auth/documents', 'https://www.googleapis.com/auth/drive.readonly',
         'https://www.googleapis.com/auth/drive', 'https://www.googleapis.com/auth/drive.metadata'],
     },
+    facebook: {
+      clientId: process.env.FACEBOOK_CLIENT_ID as string,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET as string,
+      scope: ['ads_management', 'ads_read', 'business_management', 'catalog_management']
+    }
   },
   account: {
     accountLinking: {
